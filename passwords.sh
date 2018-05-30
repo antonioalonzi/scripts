@@ -1,5 +1,5 @@
 #!/bin/bash
-FILE=~/Private/passwords.txt.gpg
+FILE=/home/aalonzi/Documents/Passwords/passwords.txt.gpg
 
 function usage() {
     echo "usage: passwords.sh <action>"
