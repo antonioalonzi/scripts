@@ -81,11 +81,12 @@ dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-columns
 
 
 # conky
-sudo cp conky/conky.conf /etc/conky/conky.conf
+sudo cp conky/* /etc/conky/
 echo "[Desktop Entry]" >> ~/.config/autostart/conky.desktop
 echo "Type=Application" >> ~/.config/autostart/conky.desktop
 echo "Name=conky" >> ~/.config/autostart/conky.desktop
-echo "Exec=conky --daemonize --pause=10" >> ~/.config/autostart/conky.desktop
+echo "Comment=Start Conky on login" >> ~/.config/autostart/conky.desktop
+echo "Exec=/etc/conky/startup-conky.sh" >> ~/.config/autostart/conky.desktop
 echo "StartupNotify=false" >> ~/.config/autostart/conky.desktop
 echo "Terminal=false" >> ~/.config/autostart/conky.desktop
 echo "Icon=conky-logomark-violet" >> ~/.config/autostart/conky.desktop
@@ -99,12 +100,18 @@ cp _ssh/* ~/.ssh
 
 
 # git projects
+printf 'Insert your email for git: '
+read gitEmail
+git config --global user.email "$gitEmail"
+git config --global user.name "Antonio Alonzi"	
+git config --global core.editor "vim"
+
 mkdir -p ~/Projects/antonioalonzi
 git clone git@github.com:antonioalonzi/scripts.git ~/Projects/antonioalonzi/scripts
 
 
 
-sudo reboot
+reboot
 
 
 
