@@ -34,7 +34,10 @@ sudo snap install blender --classic
 sudo snap install gimp
 sudo snap install inkscape
 sudo snap install intellij-idea-community --classic
+sudo snap install stellarium-daily
 sudo snap install vlc
+
+sudo snap connect gimp:removable-media :removable-media
 
 
 
@@ -49,13 +52,18 @@ sudo snap remove -y thunderbird
 # configure system
 mkdir ~/.config/autostart
 
+# mouse
+gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+
 # - gsettings list-recursively   # to discover stuff
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface clock-show-seconds true
 
 # dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'google-chrome.desktop', 'intellij-idea-community_intellij-idea-community.desktop', 'gimp_gimp.desktop', 'blender_blender.desktop', 'snap-store_snap-store.desktop', 'org.gnome.Settings.desktop']"
+gsettings set org.gnome.shell.extensions.ding show-home false
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.TextEditor.desktop', 'intellij-idea-community_intellij-idea-community.desktop', 'gimp_gimp.desktop', 'blender_blender.desktop', 'stellarium-daily_stellarium.desktop', 'org.gnome.Settings.desktop']"
+
 
 # gnome-text-editor
 gsettings set org.gnome.TextEditor custom-font 'Monospace 10'
@@ -69,14 +77,6 @@ dconf write "/org/gnome/terminal/legacy/profiles:/${profile}use-system-font" fal
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}font" "'Monospace 10'"
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-rows" 40
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-columns" 100
-
-
-
-# intellij
-#  - memory indicator
-#  - bar on the right
-# nordvpn
-#  - signin
 
 
 
@@ -111,14 +111,24 @@ git clone git@github.com:antonioalonzi/scripts.git ~/Projects/antonioalonzi/scri
 
 
 
-reboot
-
-
-
 ### Manual Steps ###
+
+gimp
+#   - Preferences -> interface -> icon theme -> Color and Huge
+
+intellij-idea-community
+#  - memory indicator
+#  - bar on the right
+
+# nordvpn
+#  - signin
 
 # gnome-extensions
 gnome-weather   # configure as London; set to celsius
 google-chrome https://extensions.gnome.extension/org/779/clipboard-indicator/   # click install
 google-chrome https://extensions.gnome.org/extension/5470/weather-oclock/
+
+
+
+reboot
 
