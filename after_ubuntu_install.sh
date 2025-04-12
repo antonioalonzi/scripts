@@ -34,8 +34,10 @@ sudo snap install blender --classic
 sudo snap install gimp
 sudo snap install inkscape
 sudo snap install intellij-idea-community --classic
+sudo snap install kdenlive
 sudo snap install stellarium-daily
 sudo snap install vlc
+sudo snap install yt-dlg
 
 sudo snap connect gimp:removable-media :removable-media
 
@@ -52,18 +54,32 @@ sudo snap remove -y thunderbird
 # configure system
 mkdir ~/.config/autostart
 
+# gsettings list-recursively   # to discover stuff
 # mouse
 gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
 
-# - gsettings list-recursively   # to discover stuff
+# magic keyboard
+echo 2 | sudo tee /sys/module/hid_apple/parameters/fnmode
+
+# desktop
+gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt']
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface clock-show-seconds true
+gsettings set org.gnome.desktop.interface show-battery-percentage true
+gsettings set org.gnome.desktop.screensaver lock-delay 'uint32 1800'
+gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+
+# gnome-desktop-privacy
+gsettings set org.gnome.desktop.privacy old-files-age 'uint32 30'
+gsettings set org.gnome.desktop.privacy recent-files-max-age 30
+gsettings set org.gnome.desktop.privacy remember-recent-files true
+gsettings set org.gnome.desktop.privacy remove-old-temp-files true
+gsettings set org.gnome.desktop.privacy remove-old-trash-files true
 
 # dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
 gsettings set org.gnome.shell.extensions.ding show-home false
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.TextEditor.desktop', 'intellij-idea-community_intellij-idea-community.desktop', 'gimp_gimp.desktop', 'blender_blender.desktop', 'stellarium-daily_stellarium.desktop', 'org.gnome.Settings.desktop']"
-
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.TextEditor.desktop', 'intellij-idea-community_intellij-idea-community.desktop', 'gimp_gimp.desktop', 'blender_blender.desktop', 'stellarium-daily_stellarium.desktop', 'transmission_transmission.desktop', 'org.gnome.Settings.desktop']"
 
 # gnome-text-editor
 gsettings set org.gnome.TextEditor custom-font 'Monospace 10'
@@ -73,10 +89,11 @@ gsettings set org.gnome.TextEditor wrap-text false
 
 # gnome-terminal
 profile=`dconf list /org/gnome/terminal/legacy/profiles:/`
-dconf write "/org/gnome/terminal/legacy/profiles:/${profile}use-system-font" false
-dconf write "/org/gnome/terminal/legacy/profiles:/${profile}font" "'Monospace 10'"
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}use-system-false" font
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}font" "'Monospace 11'"
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-rows" 40
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-columns" 100
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}palette" "['rgb(23,20,33)', 'rgb(192,28,40)', 'rgb(38,162,105)', 'rgb(162,115,76)', 'rgb(87,162,254)', 'rgb(163,71,186)', 'rgb(42,161,179)', 'rgb(208,207,204)', 'rgb(94,92,100)', 'rgb(246,97,81)', 'rgb(51,209,122)', 'rgb(233,173,12)', 'rgb(42,123,222)', 'rgb(192,97,203)', 'rgb(51,199,222)', 'rgb(255,255,255)']"
 
 
 
@@ -120,8 +137,15 @@ intellij-idea-community
 #  - memory indicator
 #  - bar on the right
 
-# nordvpn
-#  - signin
+
+mkdir -p ~/Torrents/Links
+# set icon /usr/share/icons/Yaru/48x48/places/insync-folder.png
+sudo apt remove transmission-gtk
+sudo snap install transmission
+
+#  - Downloading - automatically add links from:Torrents/Links
+#  - Downloading - save to location: Torrents
+#  - Downloading - append .part: check
 
 # gnome-extensions
 gnome-weather   # configure as London; set to celsius
@@ -130,5 +154,13 @@ google-chrome https://extensions.gnome.org/extension/5470/weather-oclock/
 
 
 
-reboot
+# nordvpn
+# hotspot on mobile network (sky blocks nordvpn)
+sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
+sudo groupadd nordvpn
+sudo usermod -aG nordvpn $USER
+nordvpn login
 
+
+
+reboot
