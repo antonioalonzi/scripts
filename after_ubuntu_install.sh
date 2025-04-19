@@ -12,8 +12,8 @@ rm google-chrome-stable_current_amd64.deb
 
 
 # configure fstab
-mkdir /media/antonio/DATA
-sudo chown antonio:antonio DATA
+sudo mkdir /media/antonio/DATA
+sudo chown antonio:antonio /media/antonio/DATA
 echo "" | sudo tee -a /etc/fstab
 echo "# DATA /dev/nvme1n1p1 2TB SSD Second hard drive" | sudo tee -a /etc/fstab
 echo "/dev/disk/by-uuid/af66d7a5-6b28-4953-9b17-55b68d7f946d /media/antonio/DATA ext4 user,rw,noauto 0 2" | sudo tee -a /etc/fstab
@@ -30,12 +30,12 @@ sudo apt install -y gparted
 sudo apt install -y lm-sensors
 sudo apt install -y vim
 
-sudo snap install blender --classic
+#sudo snap install blender --classic
 sudo snap install gimp
-sudo snap install inkscape
+#sudo snap install inkscape
 sudo snap install intellij-idea-community --classic
 sudo snap install kdenlive
-sudo snap install stellarium-daily
+#sudo snap install stellarium-daily
 sudo snap install vlc
 sudo snap install yt-dlg
 
@@ -59,10 +59,9 @@ mkdir ~/.config/autostart
 gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
 
 # magic keyboard
-echo 2 | sudo tee /sys/module/hid_apple/parameters/fnmode
+#echo 2 | sudo tee /sys/module/hid_apple/parameters/fnmode
 
 # desktop
-gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt']
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface clock-show-seconds true
 gsettings set org.gnome.desktop.interface show-battery-percentage true
@@ -79,7 +78,7 @@ gsettings set org.gnome.desktop.privacy remove-old-trash-files true
 # dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
 gsettings set org.gnome.shell.extensions.ding show-home false
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.TextEditor.desktop', 'intellij-idea-community_intellij-idea-community.desktop', 'gimp_gimp.desktop', 'blender_blender.desktop', 'stellarium-daily_stellarium.desktop', 'transmission_transmission.desktop', 'org.gnome.Settings.desktop']"
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.TextEditor.desktop', 'intellij-idea-community_intellij-idea-community.desktop', 'gimp_gimp.desktop', 'transmission_transmission.desktop', 'org.gnome.Settings.desktop']"
 
 # gnome-text-editor
 gsettings set org.gnome.TextEditor custom-font 'Monospace 10'
@@ -90,7 +89,7 @@ gsettings set org.gnome.TextEditor wrap-text false
 # gnome-terminal
 profile=`dconf list /org/gnome/terminal/legacy/profiles:/`
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}use-system-false" font
-dconf write "/org/gnome/terminal/legacy/profiles:/${profile}font" "'Monospace 11'"
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}font" "'Monospace 10'"
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-rows" 40
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-columns" 100
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}palette" "['rgb(23,20,33)', 'rgb(192,28,40)', 'rgb(38,162,105)', 'rgb(162,115,76)', 'rgb(87,162,254)', 'rgb(163,71,186)', 'rgb(42,161,179)', 'rgb(208,207,204)', 'rgb(94,92,100)', 'rgb(246,97,81)', 'rgb(51,209,122)', 'rgb(233,173,12)', 'rgb(42,123,222)', 'rgb(192,97,203)', 'rgb(51,199,222)', 'rgb(255,255,255)']"
@@ -149,7 +148,7 @@ sudo snap install transmission
 
 # gnome-extensions
 gnome-weather   # configure as London; set to celsius
-google-chrome https://extensions.gnome.extension/org/779/clipboard-indicator/   # click install
+google-chrome https://extensions.gnome.org/extension/779/clipboard-indicator/   # click install
 google-chrome https://extensions.gnome.org/extension/5470/weather-oclock/
 
 
