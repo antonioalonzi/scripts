@@ -47,7 +47,7 @@ sudo snap connect gimp:removable-media :removable-media
 sudo apt remove -y rhythmbox
 sudo apt autoremove -y
 
-sudo snap remove -y thunderbird
+sudo snap remove thunderbird
 
 
 
@@ -87,11 +87,13 @@ gsettings set org.gnome.TextEditor use-system-font false
 gsettings set org.gnome.TextEditor wrap-text false
 
 # gnome-terminal
+# click on preference then go on Unnamed and rename it as Antonio. An id will be assigned
 profile=`dconf list /org/gnome/terminal/legacy/profiles:/`
-dconf write "/org/gnome/terminal/legacy/profiles:/${profile}use-system-false" font
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}audible-bell" false
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}use-system-font" false
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}font" "'Monospace 10'"
-dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-rows" 40
-dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-columns" 100
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-rows" 45
+dconf write "/org/gnome/terminal/legacy/profiles:/${profile}default-size-columns" 90
 dconf write "/org/gnome/terminal/legacy/profiles:/${profile}palette" "['rgb(23,20,33)', 'rgb(192,28,40)', 'rgb(38,162,105)', 'rgb(162,115,76)', 'rgb(87,162,254)', 'rgb(163,71,186)', 'rgb(42,161,179)', 'rgb(208,207,204)', 'rgb(94,92,100)', 'rgb(246,97,81)', 'rgb(51,209,122)', 'rgb(233,173,12)', 'rgb(42,123,222)', 'rgb(192,97,203)', 'rgb(51,199,222)', 'rgb(255,255,255)']"
 
 
@@ -129,9 +131,6 @@ git clone git@github.com:antonioalonzi/scripts.git ~/Projects/antonioalonzi/scri
 
 ### Manual Steps ###
 
-gimp
-#   - Preferences -> interface -> icon theme -> Color and Huge
-
 intellij-idea-community
 #  - memory indicator
 #  - bar on the right
@@ -148,7 +147,7 @@ sudo snap install transmission
 
 # gnome-extensions
 gnome-weather   # configure as London; set to celsius
-google-chrome https://extensions.gnome.org/extension/779/clipboard-indicator/   # click install
+google-chrome https://extensions.gnome.org/extension/779/clipboard-indicator/
 google-chrome https://extensions.gnome.org/extension/5470/weather-oclock/
 
 
@@ -163,3 +162,4 @@ nordvpn login
 
 
 reboot
+
