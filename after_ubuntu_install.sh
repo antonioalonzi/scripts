@@ -14,9 +14,14 @@ rm google-chrome-stable_current_amd64.deb
 # configure fstab
 sudo mkdir /media/antonio/DATA
 sudo chown antonio:antonio /media/antonio/DATA
+sudo sed -i '/swap.img/d' /etc/fstab 
+echo "" | sudo tee -a /etc/fstab
+echo "# SWAP /dev/nvme0n1p3 32GM First hard drive" | sudo tee -a /etc/fstab
+echo "UUID=f778bd85-3849-4a7f-a1cd-052fc4b52cbd none   swap    sw      0       0" | sudo tee -a /etc/fstab
 echo "" | sudo tee -a /etc/fstab
 echo "# DATA /dev/nvme1n1p1 2TB SSD Second hard drive" | sudo tee -a /etc/fstab
 echo "/dev/disk/by-uuid/af66d7a5-6b28-4953-9b17-55b68d7f946d /media/antonio/DATA ext4 user,rw,noauto 0 2" | sudo tee -a /etc/fstab
+echo "" | sudo tee -a /etc/fstab
 
 
 
@@ -140,7 +145,6 @@ mkdir -p ~/Torrents/Links
 # set icon /usr/share/icons/Yaru/48x48/places/insync-folder.png
 sudo apt remove transmission-gtk
 sudo snap install transmission
-
 #  - Downloading - automatically add links from:Torrents/Links
 #  - Downloading - save to location: Torrents
 #  - Downloading - append .part: check
