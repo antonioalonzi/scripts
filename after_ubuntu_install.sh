@@ -22,6 +22,9 @@ echo "" | sudo tee -a /etc/fstab
 echo "# DATA /dev/nvme1n1p1 2TB SSD Second hard drive" | sudo tee -a /etc/fstab
 echo "/dev/disk/by-uuid/af66d7a5-6b28-4953-9b17-55b68d7f946d /media/antonio/DATA ext4 user,rw,noauto 0 2" | sudo tee -a /etc/fstab
 echo "" | sudo tee -a /etc/fstab
+echo "# EXTERNAL /dev/sda1 500MB Toshiba exteranl hard drive" | sudo tee -a /etc/fstab
+echo "UUID=611D6B4D752DF1DD /media/antonio/EXTERNAL ntfs user,rw,noauto 0 2" | sudo tee -a /etc/fstab
+echo "" | sudo tee -a /etc/fstab
 
 
 
@@ -162,6 +165,14 @@ sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 sudo groupadd nordvpn
 sudo usermod -aG nordvpn $USER
 nordvpn login
+nordvpn whitelist add subnet 192.168.0.0/24
+
+
+
+# fix amd freezing issues
+sudo echo "" >> /etc/default/grub
+sudo echo 'GRUB_CMDLINE_LINUX="amdgpu.dcdebugmask=0x10"' >> /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 
 
